@@ -2,24 +2,6 @@
 
 An MCP (Model Context Protocol) server that wraps the **Veracode CLI** to bring security scanning and AI-assisted fix suggestions directly into Claude Code and Cursor.
 
-```
-User writes code in Cursor / Claude Code
-         |
-Claude invokes MCP tool:  scan_file("/path/to/project")
-         |
-MCP Server --> veracode static scan --> polls until done (~90s)
-         |
-Returns: "Found 2 HIGH flaws:
-  - CWE-89 SQL Injection at auth.py:42
-  - CWE-78 OS Command Injection at auth.py:67"
-         |
-Claude invokes MCP tool:  suggest_fix("/path/to/auth.py")
-         |
-MCP Server --> veracode fix --> returns patch suggestions
-         |
-Claude explains the flaw + shows the Veracode-recommended fix
-```
-
 ## Prerequisites
 
 1. **Veracode CLI** installed and in your PATH
