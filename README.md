@@ -2,6 +2,30 @@
 
 An MCP (Model Context Protocol) server that wraps the **Veracode CLI** to bring security scanning and AI-assisted fix suggestions directly into Claude Code and Cursor.
 
+```
+User: "Scan this project for security issues"
+  → Veracode Pipeline Scan (~90s) → Findings with CWE, severity, file, line
+  → Veracode Fix → AI-generated code patches
+```
+
+## Installation
+
+**Option A — Clone and use locally (recommended for trying it out):**
+
+```bash
+git clone https://github.com/user/veracode-mcp-server.git
+cd veracode-mcp-server
+npm install   # auto-builds via prepare script
+```
+
+**Option B — Install directly from GitHub:**
+
+```bash
+npm install -g github:user/veracode-mcp-server
+```
+
+The `prepare` script runs `tsc` automatically on install — no manual build step needed.
+
 ## Prerequisites
 
 1. **Veracode CLI** installed and in your PATH
@@ -99,10 +123,11 @@ Generate Veracode Fix suggestions for security flaws in source code.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `source_path` | string | yes | Path to file or directory to generate fixes for |
-| `results_file` | string | no | Path to scan results JSON (helps target flaws) |
-| `apply` | boolean | no | Auto-apply fixes if `true`. Default: `false` (suggest only) |
+| `results_file` | string | yes | Path to scan results JSON (from `scan_file` output) |
+| `issue_id` | number | no | Target a specific issue number for fix diffs |
+| `apply` | boolean | no | Auto-apply the top fix if `true`. Default: `false` |
 
-**Returns:** Veracode Fix output with suggested patches.
+**Returns:** Issue list, patch diffs, or confirmation of applied fix.
 
 ## Demo Walkthrough
 

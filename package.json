@@ -10,8 +10,15 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
   },
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json",
+    ".env.example"
+  ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
     "zod": "latest"
