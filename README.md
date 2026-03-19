@@ -13,7 +13,7 @@ User: "Scan this project for security issues"
 **Option A — Clone and use locally (recommended for trying it out):**
 
 ```bash
-git clone https://github.com/user/veracode-mcp-server.git
+git clone https://github.com/shaikh-shahid/veracode-mcp-server.git
 cd veracode-mcp-server
 npm install   # auto-builds via prepare script
 ```
@@ -21,7 +21,7 @@ npm install   # auto-builds via prepare script
 **Option B — Install directly from GitHub:**
 
 ```bash
-npm install -g github:user/veracode-mcp-server
+npm install -g github:shaikh-shahid/veracode-mcp-server
 ```
 
 The `prepare` script runs `tsc` automatically on install — no manual build step needed.
