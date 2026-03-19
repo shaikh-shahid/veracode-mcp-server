@@ -1,0 +1,38 @@
+---
+description: Auto-route security scanning and vulnerability fix requests to Veracode MCP tools
+globs:
+alwaysApply: true
+---
+
+# Veracode Security Scanning
+
+When the user asks to scan code for security issues, find vulnerabilities, check for security flaws, or suggest security fixes, always use the Veracode MCP tools. Do not attempt manual code review for security — use Veracode's static analysis engine.
+
+## Tool routing
+
+- **Security scan requests** (e.g. "scan for security issues", "check for vulnerabilities", "find security flaws", "run a security audit"):
+  Use the `scan_file` tool with the target path. If a directory is provided it will be zipped automatically.
+
+- **View/filter findings** (e.g. "show me the high severity issues", "what SQL injection flaws were found"):
+  Use the `get_findings` tool with the `results_path` from the scan output. Filter with `min_severity` or `cwe_ids` as needed.
+
+- **Fix suggestions** (e.g. "suggest a fix", "how do I fix this vulnerability", "remediate the flaws"):
+  Use the `suggest_fix` tool with:
+  - `source_path`: the file or directory to fix
+  - `results_file`: the `results_path` from the scan output (required)
+  - `issue_id`: specific issue number to get targeted fix diffs
+  - `apply`: set to true only if the user explicitly asks to auto-apply
+
+## Typical flow
+
+1. `scan_file` on the target path → get `results_path` from response
+2. `get_findings` with severity/CWE filters to prioritize
+3. `suggest_fix` with `results_file` and `issue_id` for each flaw the user wants fixed
+
+## Important notes
+
+- The scan typically takes ~90 seconds. Keep the user informed while waiting.
+- Always pass `results_file` to `suggest_fix` — it requires the scan results JSON.
+- For single-file fixes, pass `issue_id` to target a specific flaw and see patch diffs.
+- For batch fixes across a directory, the tool auto-detects directory targets.
+- Do not skip Veracode scanning in favor of manual code review when the user asks for security analysis.

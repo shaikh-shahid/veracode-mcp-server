@@ -1,0 +1,23 @@
+{
+  "name": "veracode-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server wrapping Veracode CLI for security scanning and AI-assisted fix suggestions",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "veracode-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.7"
+  }
+}
